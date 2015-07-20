@@ -1,18 +1,11 @@
+console.log("Explore.js");
 import React, { Component, PropTypes, findDOMNode } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
-const DEFAULT_LOGIN = 'gaearon';
+const DEFAULT_LOGIN = 'rigorojas';
 const GITHUB_REPO = 'https://github.com/gaearon/flux-react-router-example';
 
-function parseFullName(params) {
-  if (!params.login) {
-    return DEFAULT_LOGIN;
-  }
-
-  return params.login + (params.name ? '/' + params.name : '');
-}
-
-export default class Explore extends Component {
+let Explore = class Explore extends Component {
   static propTypes = {
     params: PropTypes.shape({
       login: PropTypes.string,
@@ -38,15 +31,15 @@ export default class Explore extends Component {
     // that's what we need to we can update the input both in response to route
     // change and in response to user typing.
     this.state = {
-      loginOrRepo: parseFullName(props.params)
+      loginOrRepo: this.parseFullName(props.params)
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loginOrRepo: parseFullName(nextProps.params)
-    });
-  }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            loginOrRepo: this.parseFullName(nextProps.params)
+        });
+    }
 
   render() {
     return (
@@ -56,33 +49,43 @@ export default class Explore extends Component {
                ref='loginOrRepo'
                onKeyUp={this.handleKeyUp}
                onChange={this.handleOnChange}
-               value={this.state.loginOrRepo} />
+               value={this.state.loginOrRepo}
+        />
         <button onClick={this.handleGoClick}>Go!</button>
         <p>Code on <a href={GITHUB_REPO} target='_blank'>Github</a>.</p>
       </div>
     );
   }
 
-  handleKeyUp(e) {
-    if (e.keyCode === 13) {
-      this.handleGoClick();
+    handleKeyUp(e) {
+        if (e.keyCode === 13) {
+            this.handleGoClick();
+        }
     }
-  }
 
-  handleOnChange() {
-    // Update the internal state because we are using a controlled input.
-    // This way we can update it *both* in response to user input *and*
-    // in response to navigation in `componentWillReceiveProps`.
-    this.setState({
-      loginOrRepo: this.getInputValue()
-    });
-  }
+    handleOnChange() {
+        // Update the internal state because we are using a controlled input.
+        // This way we can update it *both* in response to user input *and*
+        // in response to navigation in `componentWillReceiveProps`.
+        this.setState({
+            loginOrRepo: this.getInputValue()
+        });
+    }
 
-  handleGoClick() {
-    this.context.router.transitionTo(`/${this.getInputValue()}`);
-  }
+    handleGoClick() {
+        this.context.router.transitionTo(`/${this.getInputValue()}`);
+    }
 
-  getInputValue() {
-    return findDOMNode(this.refs.loginOrRepo).value;
-  }
+    getInputValue() {
+        return findDOMNode(this.refs.loginOrRepo).value;
+    }
+
+    parseFullName(params) {
+        if (!params.login) {
+            return DEFAULT_LOGIN;
+        }
+        return params.login + (params.name ? '/' + params.name : '');
+    }
 }
+
+export default Explore;

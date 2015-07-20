@@ -1,3 +1,4 @@
+console.log('Root.js');
 import React, { PropTypes, Component } from 'react';
 import { Router, Route } from 'react-router';
 

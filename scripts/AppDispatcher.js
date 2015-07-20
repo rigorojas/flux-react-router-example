@@ -1,3 +1,4 @@
+console.log('AppDispatcher.js');
 import { Dispatcher } from 'flux';
 
 const flux = new Dispatcher();

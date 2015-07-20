@@ -1,3 +1,4 @@
+console.log('Index.js');
 import React from 'react';
 import BrowserHistory from 'react-router/lib/BrowserHistory';
 import HashHistory from 'react-router/lib/HashHistory';
