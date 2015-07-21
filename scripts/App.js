@@ -1,21 +1,21 @@
 import React, { PropTypes } from 'react';
-import Explore from './components/Explore';
+import Searchform from './components/Searchform';
 import DocumentTitle from 'react-document-title';
 
 export default class App {
-  static propTypes = {
+    static propTypes = {
     children: PropTypes.object
-  };
+    };
 
-  render() {
-    return (
-      <DocumentTitle title='Sample App'>
-        <div className='App'>
-          <Explore {...this.props} />
-          <hr />
-          {this.props.children}
-        </div>
-      </DocumentTitle>
-    );
-  }
+    render() {
+        return (
+        <DocumentTitle title='Sample App'>
+            <div className='App'>
+                <Searchform {...this.props} />
+                <hr />
+                {this.props.children}
+            </div>
+        </DocumentTitle>
+        );
+    }
 }
