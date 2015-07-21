@@ -1,3 +1,4 @@
+console.log("Stores/UserStores.js >>>>>>> Start");
 import { register } from '../AppDispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import selectn from 'selectn';
@@ -22,4 +23,5 @@ UserStore.dispatchToken = register(action => {
   }
 });
 
+console.log("Stores/UserStores.js <<<<<< End");
 export default UserStore;

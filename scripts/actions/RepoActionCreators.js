@@ -1,8 +1,8 @@
 import { dispatchAsync } from '../AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as RepoAPI from '../api/RepoAPI';
-import StarredReposByUserStore from '../stores/StarredReposByUserStore';
 import RepoStore from '../stores/RepoStore';
+import StarredReposByUserStore from '../stores/StarredReposByUserStore';
 
 export function requestRepo(fullName, fields) {
   // Exit early if we know about this repo

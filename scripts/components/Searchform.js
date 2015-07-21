@@ -1,4 +1,4 @@
-console.log("Searchform.js");
+console.log("Searchform.js >>>>>>>>>  Start");
 import React, { Component, PropTypes, findDOMNode } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
@@ -79,4 +79,5 @@ let Searchform = class Searchform extends Component {
     }
 }
 
+console.log("Searchform.js <<<<<<<  End");
 export default Searchform;

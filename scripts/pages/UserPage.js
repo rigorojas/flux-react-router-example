@@ -10,40 +10,32 @@ import DocumentTitle from 'react-document-title';
 import connectToStores from '../utils/connectToStores';
 
 function parseLogin(params) {
-  return params.login;
+    return params.login;
 }
 
-/**
- * Requests data from server for current props.
- */
 function requestData(props) {
-  const { params } = props;
-  const userLogin = parseLogin(params);
+    const { params } = props;
+    const userLogin = parseLogin(params);
 
-  UserActionCreators.requestUser(userLogin, ['name', 'avatarUrl']);
-  RepoActionCreators.requestStarredReposPage(userLogin, true);
+    UserActionCreators.requestUser(userLogin, ['name', 'avatarUrl']);
+    RepoActionCreators.requestStarredReposPage(userLogin, true);
 }
 
-/**
- * Retrieves state from stores for current props.
- */
 function getState(props) {
-  const login = parseLogin(props.params);
+    const login = parseLogin(props.params);
+    const user = UserStore.get(login);
+    const starred = StarredReposByUserStore.getRepos(login);
+    const starredOwners = starred.map(repo => UserStore.get(repo.owner));
+    const isLoadingStarred = StarredReposByUserStore.isExpectingPage(login);
+    const isLastPageOfStarred = StarredReposByUserStore.isLastPage(login);
 
-  const user = UserStore.get(login);
-
-  const starred = StarredReposByUserStore.getRepos(login);
-  const starredOwners = starred.map(repo => UserStore.get(repo.owner));
-  const isLoadingStarred = StarredReposByUserStore.isExpectingPage(login);
-  const isLastPageOfStarred = StarredReposByUserStore.isLastPage(login);
-
-  return {
-    user,
-    starred,
-    starredOwners,
-    isLoadingStarred,
-    isLastPageOfStarred
-  };
+    return {
+        user,
+        starred,
+        starredOwners,
+        isLoadingStarred,
+        isLastPageOfStarred
+    };
 }
 
 @connectToStores([StarredReposByUserStore, UserStore, RepoStore], getState)
@@ -108,9 +100,9 @@ export default class UserPage {
     return (
       <div>
         {starred.map((repo, index) =>
-          <Repo key={repo.fullName}
+            <Repo key={repo.fullName}
                 repo={repo}
-                owner={starredOwners[index]} />
+                owner={starredOwners[index]}/>
         )}
 
         {isEmpty && !isLoading &&
